@@ -27,7 +27,7 @@ public class Personaje {
 	
 	@Min(value = 30, message = "El peso no puede ser menor a 30kg")
     @Max(value = 300, message = "El peso no puede ser mayor a 300kg")
-	private Integer peso;
+	private Double peso;
 	
 	@NotEmpty(message = "La historia no puede ser nulo o estar vacio")
 	@NotBlank(message = "La historia no puede ser whitespace")
@@ -41,12 +41,12 @@ public class Personaje {
 	private Set<Pelicula> listaPeliculas;
 	
 	
-	/*Constructors Getters y Setters*/
+	/*Constructors, Getters, Setters*/
 	
 	public Personaje() {
 		super();
 	}
-	public Personaje(Long id, String imagen, String nombre, Integer edad, Integer peso, String historia,
+	public Personaje(Long id, String imagen, String nombre, Integer edad, Double peso, String historia,
 			Set<Pelicula> listaPeliculas) {
 		super();
 		this.id = id;
@@ -81,10 +81,10 @@ public class Personaje {
 	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
-	public Integer getPeso() {
+	public Double getPeso() {
 		return peso;
 	}
-	public void setPeso(Integer peso) {
+	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
 	public String getHistoria() {
