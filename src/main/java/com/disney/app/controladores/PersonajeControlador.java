@@ -27,9 +27,9 @@ public class PersonajeControlador {
 
 	// Create
 
-	@PostMapping(path = "/create/{id}")
-	private String create(String imagen, String nombre, Integer edad, Integer peso, String historia,
-			Set<Pelicula> listaPeliculas) {
+	@PostMapping(path = "/create")
+	private String create(@RequestParam String imagen, @RequestParam String nombre, @RequestParam Integer edad, @RequestParam Integer peso, @RequestParam String historia,
+			@RequestParam Set<Pelicula> listaPeliculas) {
 		try {
 			personajeServicioImpl.create(imagen, nombre, edad, peso, historia, listaPeliculas);
 			return "Creacion de personaje exitosa";
@@ -77,36 +77,55 @@ public class PersonajeControlador {
 			return "No se pudo eliminar el personaje con " + id;
 		}
 	}
+	
+	// Busqueda por nombre
 
 	@GetMapping(path = "/{nombre}")
 	private String obtenerPorNombre(@RequestParam String nombre) {
 		try {
 			personajeServicioImpl.buscarPorNombre(nombre);
-			return "Peticion realizada con exito";
+			return "Busqueda por nombre realizada con exito";
 		} catch (Exception e) {
-			return "Hubo un error";
+			return "No se pudo buscar personaje por nombre";
 		}
 
 	}
+	
+	// Busqueda por edad
 
 	@GetMapping(path = "/{edad}")
 	private String obtenerPorEdad(@RequestParam Integer edad) {
 		try {
 			personajeServicioImpl.buscarPorEdad(edad);
-			return "Peticion realizada con exito";
+			return "Busqueda por edad realizada con exito";
 		} catch (Exception e) {
-			return "Hubo un error";
+			return "No se pudo buscar personaje por edad";
 		}
 
 	}
 
+	// Busqueda por peso
+	
 	@GetMapping(path = "/{peso}")
 	private String obtenerPorPeso(@RequestParam Double peso) {
 		try {
 			personajeServicioImpl.buscarPorPeso(peso);
-			return "Peticion realizada con exito";
+			return "Busqueda por peso realizada con exito";
 		} catch (Exception e) {
-			return "Hubo un error";
+			return "No se pudo buscar personaje por peso";
+		}
+
+	}
+	
+	// Detalle personajes - peliculas
+	
+	@GetMapping(path = "/detalle/{peso}")
+	private String detallesPeliculas() {
+		try {
+			personajeServicioImpl.detallesPeliculas();
+			return "Detalles personajes/peliculas realizado con exito";
+		} catch (Exception e) {
+			return "No se pudo buscar los detalles personajes/peliculas";
 		}
 
 	}

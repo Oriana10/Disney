@@ -15,25 +15,28 @@ public class Personaje {
 	@Id
 	private Long id;
 	
+	@NotBlank(message = "La imagen no puede ser whitespace")
 	private String imagen;
 	
 	@NotEmpty(message = "El nombre no puede ser nulo o estar vacio")
 	@NotBlank(message = "El nombre no puede ser whitespace")
 	private String nombre;
 	
-	@Min(value = 18, message = "La edad no puede ser menor a 19")
+	@NotEmpty(message = "La edad no puede ser nula o estar vacia")
+	@Min(value = 18, message = "La edad no puede ser menor a 18")
     @Max(value = 150, message = "La edad no puede ser mayor a 100")
 	private Integer edad;
 	
+	@NotEmpty(message = "El peso no puede ser nulo o estar vacio")
 	@Min(value = 30, message = "El peso no puede ser menor a 30kg")
     @Max(value = 300, message = "El peso no puede ser mayor a 300kg")
 	private Double peso;
 	
-	@NotEmpty(message = "La historia no puede ser nulo o estar vacio")
+	@NotEmpty(message = "La historia no puede ser nula o estar vacia")
 	@NotBlank(message = "La historia no puede ser whitespace")
 	private String historia;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(
 			  name = "personajes_peliculas", 
 			  joinColumns = @JoinColumn(name = "personaje_id"), 

@@ -39,22 +39,21 @@ public class PersonajeServicioImpl implements IPersonajeServicio {
 		personaje.setNombre(nombre);
 		personaje.setEdad(edad);
 		personaje.setHistoria(historia);
-		personaje.setListaPeliculas(listaPeliculas); 
+		personaje.setListaPeliculas(listaPeliculas);
 		return IPersonajeRepository.save(personaje);
 	}
 
 	// Update
 
-
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Personaje update(Long id, MultipartFile imagen, String nombre, Integer edad, Double peso, String historia) throws IOException {
+	public Personaje update(Long id, MultipartFile imagen, String nombre, Integer edad, Double peso, String historia)
+			throws IOException {
 		Personaje personaje = IPersonajeRepository.getById(id);
 		String fileName = StringUtils.cleanPath(imagen.getOriginalFilename());
 		personaje.setImagen((Base64.getEncoder().encodeToString(imagen.getBytes())));
 		personaje.setNombre(nombre);
 		personaje.setEdad(edad);
 		personaje.setHistoria(historia);
-		// personaje.setListaPeliculas(listaPeliculas); no se actualiza la lista de peliculas
 		return IPersonajeRepository.save(personaje);
 	}
 
@@ -71,32 +70,35 @@ public class PersonajeServicioImpl implements IPersonajeServicio {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public List<Personaje> listarPersonajes() {
-		IPersonajeRepository.findAll();
-		return null;
+		return IPersonajeRepository.findAll();
 	}
 
 	// Buscar por nombre
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public List<Personaje> buscarPorNombre(String nombre) {
-		IPersonajeRepository.buscarPorNombre(nombre);
-		return null;
+	public Optional<Personaje> buscarPorNombre(String nombre) {
+		return IPersonajeRepository.buscarPorNombre(nombre);
 	}
 
 	// Buscar por edad
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public List<Personaje> buscarPorEdad(Integer edad) {
-		IPersonajeRepository.buscarPorEdad(edad);
-		return null;
+	public Optional<Personaje> buscarPorEdad(Integer edad) {
+		return IPersonajeRepository.buscarPorEdad(edad);
 	}
 
 	// Buscar por peso
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public List<Personaje> buscarPorPeso(Double peso) {
-		IPersonajeRepository.buscarPorPeso(peso);
-		return null;
+	public Optional<Personaje> buscarPorPeso(Double peso) {
+		return IPersonajeRepository.buscarPorPeso(peso);
+	}
+
+	// Detalle personajes - peliculas
+
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Optional<Pelicula> detallesPeliculas() {
+		return IPersonajeRepository.detallesPeliculas();
 	}
 
 }
