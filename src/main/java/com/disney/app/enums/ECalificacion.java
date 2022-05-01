@@ -1,5 +1,5 @@
 package com.disney.app.enums;
 
-public enum Calificacion {
+public enum ECalificacion {
 	  UNO, DOS, TRES, CUATRO, CINCO
 }
