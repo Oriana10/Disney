@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Personaje {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotBlank(message = "La imagen no puede ser whitespace")

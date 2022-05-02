@@ -2,6 +2,7 @@ package com.disney.app.servicios.impl;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.disney.app.entidades.Genero;
@@ -37,7 +41,7 @@ public class PeliculaServicioImpl implements IPeliculaservicio {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Pelicula create(String imagen, String titulo, String fechaDeCreacion, ECalificacion calificacion,
+	public Pelicula create(String imagen, String titulo, Date fechaDeCreacion, ECalificacion calificacion,
 			Set<Personaje> listaPeliculas, Genero genero) {
 		Pelicula pelicula = new Pelicula();
 		pelicula.setImagen(imagen);
@@ -61,7 +65,7 @@ public class PeliculaServicioImpl implements IPeliculaservicio {
 	// Update
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Pelicula update(Long id, MultipartFile imagen, String titulo, String fechaDeCreacion,
+	public Pelicula update(Long id, MultipartFile imagen, String titulo, Date fechaDeCreacion,
 			ECalificacion calificacion, Genero genero) throws IOException {
 		Pelicula pelicula = IPeliculaRepositorio.getById(id);
 		String fileName = StringUtils.cleanPath(imagen.getOriginalFilename());
@@ -96,7 +100,7 @@ public class PeliculaServicioImpl implements IPeliculaservicio {
 	}
 
 	// Ordenar de manera ascendente
-
+/*
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Optional<Pelicula> ordenarFechaDeCreacionAscendente() {
 		return IPeliculaRepositorio.ordenarPorFechaDeCreacionAscendente();
@@ -105,8 +109,22 @@ public class PeliculaServicioImpl implements IPeliculaservicio {
 	// Ordenar de manera descendente
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-		public Optional<Pelicula> ordenarFechaDeCreacionDescendente() {
+	public Optional<Pelicula> ordenarFechaDeCreacionDescendente() {
 		return IPeliculaRepositorio.ordenarPorFechaDeCreacionDescendente();
 	}
-
+*/
+	// Borrar personajes por pelicula
+/*
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Optional<Pelicula> borrarPersonajePorPelicula(Long idMovie, Long idCharacter) {
+		return IPeliculaRepositorio.borrarPersonajePorPelicula(idMovie, idCharacter);
+	}
+*/
+	// Agregar personajes por pelicula
+/*
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Optional<Pelicula> agregarPersonajePorPelicula(Long idMovie, Long idCharacter) { 
+		return IPeliculaRepositorio.agregarPersonajePorPelicula(idMovie, idCharacter); 
+	}
+*/
 }

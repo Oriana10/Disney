@@ -28,8 +28,8 @@ public class PersonajeControlador {
 	// Create
 
 	@PostMapping(path = "/create")
-	private String create(@RequestParam String imagen, @RequestParam String nombre, @RequestParam Integer edad, @RequestParam Integer peso, @RequestParam String historia,
-			@RequestParam Set<Pelicula> listaPeliculas) {
+	public String create(@RequestParam String imagen, @RequestParam String nombre, @RequestParam Integer edad,
+			@RequestParam Integer peso, @RequestParam String historia, @RequestParam Set<Pelicula> listaPeliculas) {
 		try {
 			personajeServicioImpl.create(imagen, nombre, edad, peso, historia, listaPeliculas);
 			return "Creacion de personaje exitosa";
@@ -42,21 +42,21 @@ public class PersonajeControlador {
 	// Update
 
 	@PutMapping(path = "/update/{id}")
-	private String update(@PathParam(value = "id") Long id, @RequestParam MultipartFile imagen,
+	public String update(@PathParam(value = "id") Long id, @RequestParam MultipartFile imagen,
 			@RequestParam String nombre, @RequestParam Integer edad, @RequestParam Double peso,
 			@RequestParam String historia) throws Exception {
 		try {
 			personajeServicioImpl.update(id, imagen, nombre, edad, peso, historia);
 			return "El personaje con id " + id + " fue modificado con exito";
 		} catch (Exception e) {
-			return "No se pudo modificar el personaje con el id + id";
+			return "No se pudo modificar el personaje con el id " + id;
 		}
 	}
 
 	// Read
 
 	@GetMapping(path = "/read")
-	private String listarPersonaje() {
+	public String listarPersonaje() {
 		try {
 			personajeServicioImpl.listarPersonajes();
 			return "Busqueda de personajes exitosa";
@@ -77,11 +77,11 @@ public class PersonajeControlador {
 			return "No se pudo eliminar el personaje con " + id;
 		}
 	}
-	
+
 	// Busqueda por nombre
 
 	@GetMapping(path = "/{nombre}")
-	private String obtenerPorNombre(@RequestParam String nombre) {
+	public String obtenerPorNombre(@RequestParam String nombre) {
 		try {
 			personajeServicioImpl.buscarPorNombre(nombre);
 			return "Busqueda por nombre realizada con exito";
@@ -90,11 +90,11 @@ public class PersonajeControlador {
 		}
 
 	}
-	
+
 	// Busqueda por edad
 
 	@GetMapping(path = "/{edad}")
-	private String obtenerPorEdad(@RequestParam Integer edad) {
+	public String obtenerPorEdad(@RequestParam Integer edad) {
 		try {
 			personajeServicioImpl.buscarPorEdad(edad);
 			return "Busqueda por edad realizada con exito";
@@ -105,9 +105,9 @@ public class PersonajeControlador {
 	}
 
 	// Busqueda por peso
-	
+
 	@GetMapping(path = "/{peso}")
-	private String obtenerPorPeso(@RequestParam Double peso) {
+	public String obtenerPorPeso(@RequestParam Double peso) {
 		try {
 			personajeServicioImpl.buscarPorPeso(peso);
 			return "Busqueda por peso realizada con exito";
@@ -116,11 +116,11 @@ public class PersonajeControlador {
 		}
 
 	}
-	
+
 	// Detalle personajes - peliculas
-	
+/*
 	@GetMapping(path = "/detalle/{peso}")
-	private String detallesPeliculas() {
+	public String detallesPeliculas() {
 		try {
 			personajeServicioImpl.detallesPeliculas();
 			return "Detalles personajes/peliculas realizado con exito";
@@ -129,5 +129,5 @@ public class PersonajeControlador {
 		}
 
 	}
-
+*/
 }

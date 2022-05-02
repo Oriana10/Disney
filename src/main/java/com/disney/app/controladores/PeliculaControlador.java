@@ -1,5 +1,6 @@
 package com.disney.app.controladores;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.websocket.server.PathParam;
@@ -30,9 +31,9 @@ public class PeliculaControlador {
 	// Create
 
 	@PostMapping(path = "/create")
-	private String create(@RequestParam String imagen, @RequestParam String titulo,
-			@RequestParam String fechaDeCreacion, @RequestParam ECalificacion calificacion,
-			@RequestParam Set<Personaje> listaPeliculas, @RequestParam Genero genero) {
+	public String create(@RequestParam String imagen, @RequestParam String titulo, @RequestParam Date fechaDeCreacion,
+			@RequestParam ECalificacion calificacion, @RequestParam Set<Personaje> listaPeliculas,
+			@RequestParam Genero genero) {
 		try {
 			peliculaServicioImpl.create(imagen, titulo, fechaDeCreacion, calificacion, listaPeliculas, genero);
 			return "Creacion de pelicula exitosa";
@@ -44,22 +45,22 @@ public class PeliculaControlador {
 
 	// Update
 
-	@PutMapping(path = "/update/{id}")
-	private String update(@PathParam(value = "id") Long id, @RequestParam MultipartFile imagen,
-			@RequestParam String titulo, @RequestParam String fechaDeCreacion, @RequestParam ECalificacion calificacion,
+	@PutMapping(path = "/update/{idMovie}")
+	public String update(@PathParam(value = "id") Long id, @RequestParam MultipartFile imagen,
+			@RequestParam String titulo, @RequestParam Date fechaDeCreacion, @RequestParam ECalificacion calificacion,
 			@RequestParam Genero genero) throws Exception {
 		try {
 			peliculaServicioImpl.update(id, imagen, titulo, fechaDeCreacion, calificacion, genero);
 			return "La pelicula con id " + id + " fue modificada con exito";
 		} catch (Exception e) {
-			return "No se pudo modificar la pelicula con el id + id";
+			return "No se pudo modificar la pelicula con el id " + id;
 		}
 	}
 
 	// Read
 
 	@GetMapping(path = "/read")
-	private String listarPeliculas() {
+	public String listarPeliculas() {
 		try {
 			peliculaServicioImpl.listarPeliculas();
 			return "Busqueda de peliculas exitosa";
@@ -71,7 +72,7 @@ public class PeliculaControlador {
 
 	// Delete
 
-	@DeleteMapping(path = "/delete/{id}")
+	@DeleteMapping(path = "/delete/{idMovie}")
 	public String borrarPorId(@PathVariable("id") Long id) {
 		try {
 			peliculaServicioImpl.delete(id);
@@ -84,7 +85,7 @@ public class PeliculaControlador {
 	// Busqueda por nombre
 
 	@GetMapping(path = "/{nombre}")
-	private String obtenerPorNombre(@RequestParam String nombre) {
+	public String obtenerPorNombre(@RequestParam String nombre) {
 		try {
 			peliculaServicioImpl.buscarPorNombre(nombre);
 			return "Busqueda por nombre realizada con exito";
@@ -97,7 +98,7 @@ public class PeliculaControlador {
 	// Busqueda por genero
 
 	@GetMapping(path = "/{genero}")
-	private String obtenerPorGenero(@RequestParam String genero) {
+	public String obtenerPorGenero(@RequestParam String genero) {
 		try {
 			peliculaServicioImpl.buscarPorNombre(genero);
 			return "Busqueda por genero realizada con exito";
@@ -108,29 +109,47 @@ public class PeliculaControlador {
 	}
 
 	// Ordenar de manera ascendente
-
-	@GetMapping(path = "/ordenarFechasAsc")
-	private String ordenarFechaDeCreacionAscendente() {
-		try {
-			peliculaServicioImpl.ordenarFechaDeCreacionAscendente();
-			return "Ordenamiento de fechas de creacion ascendente realizado con exito";
-		} catch (Exception e) {
-			return "No se pudo ordenar fechas de creacion ascendentemente";
-		}
-
-	}
-
-	// Ordenar de manera descendente
-
-	@GetMapping(path = "/ordenarFechasAsc")
-	private String ordenarFechaDeCreacionDescendente() {
-		try {
-			peliculaServicioImpl.ordenarFechaDeCreacionDescendente();
-			return "Ordenamiento de fechas de creacion descendente realizado con exito";
-		} catch (Exception e) {
-			return "No se pudo ordenar fechas de creacion descendentemente";
-		}
-
-	}
-
+	/*
+	 * @GetMapping(path = "/ordenarFechasAsc") public String
+	 * ordenarFechaDeCreacionAscendente() { try {
+	 * peliculaServicioImpl.ordenarFechaDeCreacionAscendente(); return
+	 * "Ordenamiento de fechas de creacion ascendente realizado con exito"; } catch
+	 * (Exception e) { return
+	 * "No se pudo ordenar fechas de creacion ascendentemente"; }
+	 * 
+	 * }
+	 * 
+	 * // Ordenar de manera descendente
+	 * 
+	 * @GetMapping(path = "/ordenarFechasAsc") public String
+	 * ordenarFechaDeCreacionDescendente() { try {
+	 * peliculaServicioImpl.ordenarFechaDeCreacionDescendente(); return
+	 * "Ordenamiento de fechas de creacion descendente realizado con exito"; } catch
+	 * (Exception e) { return
+	 * "No se pudo ordenar fechas de creacion descendentemente"; }
+	 * 
+	 * }
+	 */
+	// Borrar personajes por pelicula
+	/*
+	 * @DeleteMapping("/{idMovie}/characters/{idCharacter}") public String
+	 * borrarPersonajesPorPelicula(@PathVariable("id") Long idMovie, @RequestParam
+	 * Long idCharacter) { try {
+	 * peliculaServicioImpl.borrarPersonajePorPelicula(idMovie, idCharacter); return
+	 * "El personaje " + idCharacter + " de la pelicula con id  " + idMovie +
+	 * " se eliminó correctamente"; } catch (Exception e) { return
+	 * "No se puso eliminar el personaje " + idCharacter + " de la pelicula con " +
+	 * idMovie; } }
+	 */
+	// Agregar personajes por pelicula
+	/*
+	 * @PostMapping("/{idMovie}/characters/{idCharacter}") public String
+	 * agregarPersonajesPorPelicula(@PathVariable("id") Long idMovie, @RequestParam
+	 * Long idCharacter) { try {
+	 * peliculaServicioImpl.agregarPersonajePorPelicula(idMovie, idCharacter);
+	 * return "El personaje " + idCharacter + " de la pelicula con id  " + idMovie +
+	 * " se agregó correctamente"; } catch (Exception e) { return
+	 * "No se puso eliminar el personaje " + idCharacter + " de la pelicula con " +
+	 * idMovie; } }
+	 */
 }

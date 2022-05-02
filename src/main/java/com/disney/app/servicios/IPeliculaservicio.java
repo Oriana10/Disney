@@ -1,5 +1,6 @@
 package com.disney.app.servicios;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -14,11 +15,11 @@ import com.disney.app.enums.ECalificacion;
 @Service
 public interface IPeliculaservicio {
 
-	Pelicula create(String imagen, String titulo, String fechaDeCreacion, ECalificacion calificacion, Set<Personaje> listaPersonajes, Genero genero);
+	Pelicula create(String imagen, String titulo, Date fechaDeCreacion, ECalificacion calificacion, Set<Personaje> listaPersonajes, Genero genero);
     
     void delete(Long id);
     
-    // Personaje update(String imagen, String titulo, String fechaDeCreacion, ECalificacion calificacion, Set<Personaje> listaPersonajes, Genero genero); comentado porque sino entra en conflicto el valor de imagen con Multiparfile y String
+    // Personaje update(String imagen, String titulo, Date fechaDeCreacion, ECalificacion calificacion, Set<Personaje> listaPersonajes, Genero genero); comentado porque sino entra en conflicto el valor de imagen con Multiparfile y String
     
     List<Pelicula> listarPeliculas();
 	

@@ -1,5 +1,6 @@
 package com.disney.app.entidades;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -37,7 +39,7 @@ public class Pelicula {
 	@NotEmpty(message = "La fecha no puede ser nula o estar vacia")
 	@Temporal(TemporalType.DATE)
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	private String fechaDeCreacion;
+	private Date fechaDeCreacion;
 
 	@Enumerated(EnumType.STRING)
 	private ECalificacion calificacion;
@@ -46,7 +48,8 @@ public class Pelicula {
 	@ManyToMany(mappedBy = "listaPeliculas", fetch = FetchType.LAZY)
 	private Set<Personaje> listaPeliculas;
 
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_genero")
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private Genero genero;
 
 	/* Constructors, Getters, Setters */
@@ -57,7 +60,7 @@ public class Pelicula {
 
 	public Pelicula(Long id, String imagen,
 			@NotEmpty(message = "El titulo no puede ser nulo o estar vacio") @NotBlank(message = "El titulo no puede ser whitespace") String titulo,
-			@NotEmpty(message = "La fecha no puede ser nula o estar vacia") String fechaDeCreacion,
+			@NotEmpty(message = "La fecha no puede ser nula o estar vacia") Date fechaDeCreacion,
 			ECalificacion calificacion,
 			@NotNull(message = "La lista de peliculas no puede ser nula") Set<Personaje> listaPersonajes,
 			Genero genero) {
@@ -95,11 +98,11 @@ public class Pelicula {
 		this.titulo = titulo;
 	}
 
-	public String getFechaDeCreacion() {
+	public Date getFechaDeCreacion() {
 		return fechaDeCreacion;
 	}
 
-	public void setFechaDeCreacion(String fechaDeCreacion) {
+	public void setFechaDeCreacion(Date fechaDeCreacion) {
 		this.fechaDeCreacion = fechaDeCreacion;
 	}
 

@@ -95,10 +95,10 @@ public class PersonajeServicioImpl implements IPersonajeServicio {
 	}
 
 	// Detalle personajes - peliculas
-
+/*
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Optional<Pelicula> detallesPeliculas() {
 		return IPersonajeRepository.detallesPeliculas();
 	}
-
+*/
 }

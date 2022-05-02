@@ -21,12 +21,12 @@ public interface IPersonajeRepositorio extends JpaRepository<Personaje, Long> {
 
 	@Query("SELECT p FROM Personaje p WHERE p.peso = :peso")
 	public Optional<Personaje> buscarPorPeso(@Param("peso") Double peso);
-
+/*
 	@Query("SELECT \r\n" + "	personaje.nombre as 'Personaje'\r\n" + "	pelicula.titulo as 'Pelicula'\r\n"
 			+ "	FROM Personaje personaje\r\n" + "	RIGHT JOIN Pelicula pelicula\r\n"
 			+ "	ON personaje.PeliculaId = pelicula.Id")
 	public Optional<Pelicula> detallesPeliculas();
-
+*/
 	/*
 	 * ejemplo:
 	 * SELECT E.Nombre as 'Empleado', D.Nombre as 'Departamento' FROM Empleados E
